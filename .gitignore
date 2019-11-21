@@ -2,3 +2,5 @@
 models/DisasterResponse.db
 models/.ipynb_checkpoints/ML Pipeline Preparation-checkpoint.ipynb
 models/model.pkl
+data/.ipynb_checkpoints/process_data-checkpoint.py
+data/.ipynb_checkpoints/ETL Pipeline Preparation-checkpoint.ipynb
