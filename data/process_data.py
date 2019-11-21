@@ -1,16 +1,55 @@
 import sys
-
+import pandas as pd
+from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
-    pass
+    """
+    Load dataframe from filepaths
+    
+    Arguments:
+        messages_filepath -> path to messages csv file
+        categories_filepath -> path to categories csv file
+    Output:
+        df -> Loaded data as Pandas DataFrame
+    """
+    messages = pd.read_csv(messages_filepath)
+    categories = pd.read_csv(categories_filepath)
+    df = messages.merge(categories, on='id')
+    return df 
 
 
 def clean_data(df):
-    pass
+    """
+    Clean data by transforming categories
+    
+    Arguments:
+        df -> type pandas DataFrame
+    Output:
+        df -> cleaned pandas DataFrame
+    """
+    categories = df['categories'].str.split(pat=';', expand=True)
+    row = categories.iloc[0,:]
+    category_colnames = row.apply(lambda x:x[:-2])
+    categories.columns = category_colnames
+    for column in categories:
+        categories[column] = categories[column].str[-1:]
+        categories[column] = categories[column].astype(int)
+    df.drop('categories', axis=1, inplace=True)
+    df = pd.concat([df, categories], axis=1)
+    df.drop_duplicates(inplace=True)
+    return df
 
 
 def save_data(df, database_filename):
-    pass  
+    """
+    Saves input DataFrame to provided database path
+    
+    Arguments:
+        df -> Pandas DataFrame
+        database_filename -> database file (.db) destination path
+    """
+    engine = create_engine('sqlite:///'+ database_filename)
+    df.to_sql('DisasterResponse', engine, index=False)
 
 
 def main():
