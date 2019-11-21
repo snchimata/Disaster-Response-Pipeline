@@ -1,3 +1,16 @@
+"""
+Disaster Response Pipeline Project
+Udacity - Data Science Nanodegree
+
+Sample Script Execution:
+> python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
+
+Arguments:
+    1. CSV file containing messages -> Ex: disaster_messages.csv
+    2. CSV file containing categories -> Ex: disaster_categories.csv
+    3. SQLite destination database -> Ex: DisasterResponse.db
+"""
+
 import sys
 import pandas as pd
 from sqlalchemy import create_engine
