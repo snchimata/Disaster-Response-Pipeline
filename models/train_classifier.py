@@ -108,7 +108,7 @@ def get_results(Y_test, y_pred):
     """
     report = pd.DataFrame(columns=['Category', 'f_score', 'precision', 'recall'])
     num = 0
-    for colnm in y_test.columns:
+    for colnm in Y_test.columns:
         precision, recall, f_score, support = precision_recall_fscore_support(Y_test[colnm], y_pred[:,num], average='weighted')
         report.at[num+1, 'Category'] = colnm
         report.at[num+1, 'f_score'] = f_score
@@ -118,7 +118,7 @@ def get_results(Y_test, y_pred):
     print('Aggregated f_score:', report['f_score'].mean())
     print('Aggregated precision:', report['precision'].mean())
     print('Aggregated recall:', report['recall'].mean())
-    print('Accuracy:', np.mean(y_test.values == y_pred))
+    print('Accuracy:', np.mean(Y_test.values == y_pred))
     return report
 
 
