@@ -86,15 +86,27 @@ def build_model():
     """
     Build Model pipeline
     
-    Output is a Scikit ML Pipeline that process text messages
+    Output is a tuned model that process text messages
     and apply model for scoring.
     """
 
-    model = Pipeline([
+    modelp = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(AdaBoostClassifier()))
         ])
+    
+    # hyper-parameter grid
+    parameters = {#'vect__ngram_range': ((1, 1), (1, 2)),
+                  'vect__max_df': (0.75, 1.0),
+                  'clf__learning_rate': (0.5, 1.0)
+                  }
+
+    # create model
+    model = GridSearchCV(estimator=modelp,
+            param_grid=parameters,
+            verbose=3,
+            cv=2)
 
     return model
 
