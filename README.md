@@ -125,6 +125,8 @@ This will start the web app and will direct you to http://0.0.0.0:3001/ where yo
 
 ![genre](Capture-Front.PNG)
 
+![genre](Capture-Front2.PNG)
+
 **_Below is an example of a message to test ML model performance_**
 
 ![dist](Capture-Message1.PNG)
