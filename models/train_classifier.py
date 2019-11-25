@@ -98,14 +98,15 @@ def build_model():
     
     # hyper-parameter grid
     parameters = {#'vect__ngram_range': ((1, 1), (1, 2)),
-                  'vect__max_df': (0.75, 1.0),
-                  'clf__learning_rate': (0.5, 1.0)
+                  #'vect__max_df': (0.75, 1.0),
+                  'clf__estimator__n_estimators': (50,100)
                   }
 
     # create model
     model = GridSearchCV(estimator=modelp,
             param_grid=parameters,
             verbose=3,
+            #n_jobs = -1,
             cv=2)
 
     return model
